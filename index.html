@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0f14" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="CardVault" />
+  <meta name="description" content="Control gratuito y local de tarjetas deportivas coleccionables." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>CardVault Sports V2</title>
+  <style>
+    :root{
+      --bg:#090d12;--panel:#111720;--panel2:#171f2a;--panel3:#202a37;--line:#283445;
+      --text:#f7f9fc;--muted:#8f9db0;--accent:#d9ff52;--accent2:#bde33b;--danger:#ff7272;
+      --warning:#ffc857;--ok:#6ee7a8;--radius:20px;--shadow:0 20px 60px rgba(0,0,0,.32);
+      --safe-bottom:env(safe-area-inset-bottom,0px)
+    }
+    *{box-sizing:border-box}html{color-scheme:dark;background:var(--bg)}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+    button,input,select,textarea{font:inherit}button{touch-action:manipulation}.hidden{display:none!important}
+    .shell{max-width:1180px;margin:0 auto;padding:0 18px 112px}.topbar{position:sticky;top:0;z-index:30;margin:0 -18px;padding:calc(10px + env(safe-area-inset-top,0px)) 18px 12px;background:linear-gradient(180deg,rgba(9,13,18,.98),rgba(9,13,18,.90),rgba(9,13,18,0));backdrop-filter:blur(14px)}
+    .topbar-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--accent);color:#0b0f14;font-weight:1000;letter-spacing:-.05em;box-shadow:0 0 0 1px rgba(255,255,255,.08) inset}.brand-copy{min-width:0}.brand-copy strong{display:block;font-size:16px}.brand-copy span{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-actions{display:flex;gap:8px}.icon-btn,.btn{border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer}.icon-btn{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:18px}.btn{border-radius:13px;padding:11px 14px;font-weight:800}.btn.primary{background:var(--accent);color:#0c1008;border-color:var(--accent)}.btn.secondary{background:var(--panel2)}.btn.danger{border-color:rgba(255,114,114,.45);color:var(--danger);background:transparent}.btn.small{padding:9px 11px;font-size:12px}.btn.full{width:100%}.eyebrow{margin:0;color:var(--accent);font-weight:900;font-size:10px;letter-spacing:.14em;text-transform:uppercase}.view{display:none}.view.active{display:block}.page-title{margin:20px 0 16px}.page-title h1{margin:5px 0 0;font-size:clamp(26px,6vw,38px);letter-spacing:-.04em}.page-title p:last-child{margin:8px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
+    .hero{background:radial-gradient(circle at 80% 10%,rgba(217,255,82,.13),transparent 32%),linear-gradient(145deg,#141b24,#0e131a);border:1px solid var(--line);border-radius:26px;padding:20px;box-shadow:var(--shadow);overflow:hidden}.hero-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}.kpi{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:14px}.kpi span{display:block;color:var(--muted);font-size:11px}.kpi strong{display:block;margin-top:7px;font-size:21px;letter-spacing:-.03em}.hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .section{margin-top:18px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:10px}.section-head h2{font-size:17px;margin:4px 0 0}.section-head button{white-space:nowrap}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px}.empty{padding:24px;color:var(--muted);text-align:center;font-size:13px;line-height:1.55}.breakdown{display:grid;gap:12px;padding:16px}.break-row{display:grid;grid-template-columns:90px 1fr 38px;gap:10px;align-items:center;font-size:12px}.break-row>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bar{height:8px;background:#212b38;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);border-radius:999px}.recent-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mini-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer}.mini-photo{aspect-ratio:4/5;background:linear-gradient(135deg,#1d2632,#0f141b);display:grid;place-items:center;color:#556275;font-weight:900}.mini-photo img{width:100%;height:100%;object-fit:cover}.mini-copy{padding:11px}.mini-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}.mini-copy small{display:block;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .capture-card{background:linear-gradient(145deg,#151d27,#10161e);border:1px solid var(--line);border-radius:24px;padding:16px}.capture-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.capture-title h2{margin:3px 0 0;font-size:18px}.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.photo-slot{position:relative;aspect-ratio:4/5;border:1px dashed #46566b;background:#0f151d;border-radius:18px;overflow:hidden}.photo-slot img{width:100%;height:100%;object-fit:cover;display:none}.photo-slot.has-photo img{display:block}.slot-empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:12px;color:var(--muted);font-size:12px}.photo-slot.has-photo .slot-empty{display:none}.slot-badge{position:absolute;left:9px;top:9px;background:rgba(8,12,16,.75);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800;backdrop-filter:blur(8px)}.slot-actions{position:absolute;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px}.slot-actions button{border:1px solid rgba(255,255,255,.12);background:rgba(9,13,18,.82);color:var(--text);border-radius:10px;padding:8px 5px;font-size:10px;font-weight:800;backdrop-filter:blur(8px)}
+    .form-section{margin-top:16px}.section-label{font-size:12px;font-weight:900;margin:0 0 9px;color:#cfd6df}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11px;color:#aeb9c7;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:13px;padding:12px 12px;outline:none;min-height:44px}.field textarea{min-height:84px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#65748a;box-shadow:0 0 0 3px rgba(217,255,82,.06)}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{position:relative}.chip input{position:absolute;opacity:0;pointer-events:none}.chip label{display:block;padding:9px 11px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);font-size:11px;color:#c4cdd8;font-weight:800;cursor:pointer}.chip input:checked+label{background:var(--accent);border-color:var(--accent);color:#0c1008}.details{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}.details summary{cursor:pointer;color:#cbd3dd;font-weight:800;font-size:12px;padding:5px 0 10px}.capture-actions{position:sticky;bottom:78px;z-index:10;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px -2px 0;padding:9px;background:rgba(9,13,18,.88);border:1px solid rgba(255,255,255,.05);border-radius:16px;backdrop-filter:blur(14px)}
+    .searchbar{display:flex;gap:8px;margin:12px 0}.searchbox{flex:1;display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:0 12px}.searchbox input{width:100%;border:0;outline:0;background:transparent;color:var(--text);padding:12px 0}.filter-row{display:flex;gap:8px;overflow:auto;padding-bottom:3px;scrollbar-width:none}.filter-row::-webkit-scrollbar{display:none}.filter-row select{min-width:max-content;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:999px;padding:9px 12px;font-size:11px}.cards-list{display:grid;gap:10px;margin-top:12px}.collection-card{display:grid;grid-template-columns:78px 1fr auto;gap:11px;padding:10px;background:var(--panel);border:1px solid var(--line);border-radius:18px;align-items:center;cursor:pointer}.collection-thumb{width:78px;height:98px;border-radius:12px;background:#1b2430;overflow:hidden;display:grid;place-items:center;color:#536174;font-size:11px}.collection-thumb img{width:100%;height:100%;object-fit:cover}.collection-main{min-width:0}.collection-main strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.collection-main .meta{font-size:11px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.tag{font-size:9px;padding:4px 6px;border-radius:999px;background:#202a36;color:#cdd6df}.tag.accent{background:var(--accent);color:#0d1108}.tag.warn{background:rgba(255,200,87,.15);color:#ffd77d}.collection-side{text-align:right}.collection-side strong{display:block;font-size:12px}.collection-side small{display:block;color:var(--muted);margin-top:3px;font-size:10px}
+    .backup-grid{display:grid;gap:10px}.backup-card{padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:18px}.backup-card h3{margin:4px 0 6px}.backup-card p{color:var(--muted);font-size:12px;line-height:1.55;margin:0 0 14px}.notice{padding:14px;border-radius:16px;background:rgba(255,200,87,.08);border:1px solid rgba(255,200,87,.26);color:#e9d8aa;font-size:12px;line-height:1.55}.install-card{margin-top:10px;padding:14px;background:rgba(217,255,82,.07);border:1px solid rgba(217,255,82,.18);border-radius:16px;font-size:12px;color:#dce6bd;line-height:1.5}
+    .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + var(--safe-bottom));z-index:50;width:min(680px,calc(100% - 20px));display:grid;grid-template-columns:repeat(4,1fr);padding:7px;background:rgba(15,20,27,.93);border:1px solid rgba(255,255,255,.08);border-radius:20px;box-shadow:0 18px 50px rgba(0,0,0,.45);backdrop-filter:blur(18px)}.nav-btn{border:0;background:transparent;color:var(--muted);border-radius:14px;padding:8px 4px;font-size:10px;font-weight:800;display:grid;place-items:center;gap:4px;cursor:pointer}.nav-btn b{font-size:18px;font-weight:500}.nav-btn.active{background:var(--panel3);color:var(--text)}.nav-btn.capture{color:#111;background:var(--accent)}
+    .sheet{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.68);display:flex;align-items:flex-end;justify-content:center;padding-top:40px;backdrop-filter:blur(5px)}.sheet.hidden{display:none}.sheet-card{width:min(720px,100%);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:26px 26px 0 0;padding:16px 16px calc(18px + var(--safe-bottom));box-shadow:0 -20px 70px rgba(0,0,0,.42)}.sheet-handle{width:44px;height:5px;border-radius:999px;background:#3b4654;margin:0 auto 14px}.sheet-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.sheet-head h2{margin:4px 0 0}.sheet-photo{width:100%;max-height:340px;object-fit:contain;background:#0c1117;border-radius:16px;margin-top:14px}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.detail-item{background:var(--panel2);border-radius:13px;padding:11px}.detail-item span{display:block;color:var(--muted);font-size:10px}.detail-item strong{display:block;margin-top:4px;font-size:12px}.sheet-actions{display:flex;gap:8px;margin-top:14px}.sheet-actions .btn{flex:1}
+    .toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-bottom));transform:translate(-50%,15px);z-index:120;background:#f7f9fc;color:#0d1117;border-radius:13px;padding:11px 14px;font-weight:850;font-size:12px;opacity:0;pointer-events:none;transition:.2s;box-shadow:var(--shadow)}.toast.show{opacity:1;transform:translate(-50%,0)}
+    .file-input{display:none}
+    @media(min-width:720px){.shell{padding-bottom:120px}.hero-kpis{grid-template-columns:repeat(4,1fr)}.recent-grid{grid-template-columns:repeat(4,1fr)}.photo-pair{max-width:560px}.capture-card{padding:22px}.form-grid{grid-template-columns:repeat(4,1fr)}.field.full{grid-column:1/-1}.field.span2{grid-column:span 2}.capture-actions{bottom:90px;max-width:560px}.cards-list{grid-template-columns:repeat(2,1fr)}.backup-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(min-width:980px){.bottom-nav{position:sticky;top:82px;bottom:auto;left:auto;transform:none;width:100%;margin:0 0 18px;grid-template-columns:repeat(4,160px);justify-content:center}.shell{padding-bottom:50px}.capture-actions{bottom:20px}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar-row">
+        <div class="brand">
+          <div class="brand-mark">CV</div>
+          <div class="brand-copy"><strong>CardVault Sports</strong><span id="storageLabel">Tu colección · local y gratis</span></div>
+        </div>
+        <div class="top-actions">
+          <button id="installBtn" class="btn small secondary hidden" type="button">Instalar</button>
+          <button id="quickAddTop" class="icon-btn" type="button" title="Agregar tarjeta">＋</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-btn active" data-view="home" type="button"><b>⌂</b><span>Inicio</span></button>
+      <button class="nav-btn" data-view="collection" type="button"><b>▤</b><span>Colección</span></button>
+      <button class="nav-btn capture" data-view="capture" type="button"><b>＋</b><span>Agregar</span></button>
+      <button class="nav-btn" data-view="backup" type="button"><b>⇄</b><span>Respaldo</span></button>
+    </nav>
+
+    <main>
+      <section id="homeView" class="view active">
+        <div class="page-title"><p class="eyebrow">MI COLECCIÓN</p><h1>Todo bajo control.</h1><p>Registra, fotografía y localiza tus tarjetas deportivas desde el celular.</p></div>
+        <div class="hero">
+          <p class="eyebrow">RESUMEN</p>
+          <div class="hero-kpis">
+            <div class="kpi"><span>Ejemplares</span><strong id="kpiCards">0</strong></div>
+            <div class="kpi"><span>Valor estimado</span><strong id="kpiValue">$0</strong></div>
+            <div class="kpi"><span>Invertido</span><strong id="kpiCost">$0</strong></div>
+            <div class="kpi"><span>PC</span><strong id="kpiPc">0</strong></div>
+          </div>
+          <div class="hero-actions">
+            <button id="homeAddBtn" class="btn primary" type="button">📷 Agregar tarjeta</button>
+            <button id="homeCollectionBtn" class="btn secondary" type="button">Ver colección</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-head"><div><p class="eyebrow">DISTRIBUCIÓN</p><h2>Por deporte</h2></div></div>
+          <div class="panel"><div id="sportBreakdown" class="empty">Agrega tu primera tarjeta para ver el resumen.</div></div>
+        </div>
+
+        <div class="section">
+          <div class="section-head"><div><p class="eyebrow">RECIENTES</p><h2>Últimas tarjetas</h2></div><button id="seeAllBtn" class="btn small secondary" type="button">Ver todas</button></div>
+          <div id="recentGrid" class="recent-grid"><div class="panel empty" style="grid-column:1/-1">Todavía no hay tarjetas registradas.</div></div>
+        </div>
+      </section>
+
+      <section id="captureView" class="view">
+        <div class="page-title"><p class="eyebrow">ALTA RÁPIDA</p><h1 id="captureHeading">Nueva tarjeta</h1><p>Foto primero. Luego captura solo lo importante; el resto es opcional.</p></div>
+        <form id="cardForm" autocomplete="off">
+          <input id="cardId" type="hidden" />
+          <div class="capture-card">
+            <div class="capture-title"><div><p class="eyebrow">FOTOS</p><h2>Frente y reverso</h2></div><span style="color:var(--muted);font-size:11px">Se comprimen al guardar</span></div>
+            <div class="photo-pair">
+              <div id="frontSlot" class="photo-slot">
+                <img id="frontPreview" alt="Vista previa del frente" />
+                <div class="slot-empty">📷<br><strong style="color:#cfd7e2;margin-top:6px">Frente</strong><br>Usa cámara o galería</div>
+                <div class="slot-badge">FRENTE</div>
+                <div class="slot-actions"><button type="button" data-photo="front" data-source="camera">Cámara</button><button type="button" data-photo="front" data-source="gallery">Galería</button></div>
+              </div>
+              <div id="backSlot" class="photo-slot">
+                <img id="backPreview" alt="Vista previa del reverso" />
+                <div class="slot-empty">📷<br><strong style="color:#cfd7e2;margin-top:6px">Reverso</strong><br>Usa cámara o galería</div>
+                <div class="slot-badge">REVERSO</div>
+                <div class="slot-actions"><button type="button" data-photo="back" data-source="camera">Cámara</button><button type="button" data-photo="back" data-source="gallery">Galería</button></div>
+              </div>
+            </div>
+            <input id="frontCamera" class="file-input" type="file" accept="image/*" capture="environment" />
+            <input id="frontGallery" class="file-input" type="file" accept="image/*" />
+            <input id="backCamera" class="file-input" type="file" accept="image/*" capture="environment" />
+            <input id="backGallery" class="file-input" type="file" accept="image/*" />
+
+            <div class="form-section">
+              <p class="section-label">Datos principales</p>
+              <div class="form-grid">
+                <div class="field span2"><label for="player">Jugador / atleta *</label><input id="player" required placeholder="Ej. Shohei Ohtani" /></div>
+                <div class="field"><label for="sport">Deporte</label><select id="sport"><option value="">Selecciona</option><option>Baseball</option><option>Basketball</option><option>Football</option><option>Soccer</option><option>Hockey</option><option>F1 / Racing</option><option>Wrestling</option><option>Golf</option><option>Tennis</option><option>Otro</option></select></div>
+                <div class="field"><label for="year">Año</label><input id="year" inputmode="numeric" placeholder="2024" /></div>
+                <div class="field span2"><label for="brand">Marca</label><input id="brand" placeholder="Topps, Panini, Upper Deck..." /></div>
+                <div class="field span2"><label for="setName">Set / producto</label><input id="setName" placeholder="Chrome, Prizm, Select..." /></div>
+                <div class="field"><label for="cardNumber">No. tarjeta</label><input id="cardNumber" placeholder="#136" /></div>
+                <div class="field span2"><label for="parallel">Paralelo / variante</label><input id="parallel" placeholder="Silver, Gold, Refractor..." /></div>
+                <div class="field"><label for="quantity">Cantidad</label><input id="quantity" inputmode="numeric" type="number" min="1" value="1" /></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <p class="section-label">Tipo de tarjeta</p>
+              <div class="chips">
+                <div class="chip"><input id="rookie" type="checkbox"><label for="rookie">RC Rookie</label></div>
+                <div class="chip"><input id="autograph" type="checkbox"><label for="autograph">✍ Auto</label></div>
+                <div class="chip"><input id="memorabilia" type="checkbox"><label for="memorabilia">Patch / Mem</label></div>
+                <div class="chip"><input id="serialed" type="checkbox"><label for="serialed">#/ Serial</label></div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <p class="section-label">Tu ejemplar</p>
+              <div class="form-grid">
+                <div class="field"><label for="status">Estado</label><select id="status"><option>PC</option><option>Disponible</option><option>Venta</option><option>Trade</option><option>Vendida</option></select></div>
+                <div class="field"><label for="condition">Condición</label><select id="condition"><option>NM-MT</option><option>Mint</option><option>NM</option><option>EX-MT</option><option>EX</option><option>VG</option><option>G</option><option>Poor</option></select></div>
+                <div class="field"><label for="grader">Grading</label><select id="grader"><option value="">Raw / Sin grading</option><option>PSA</option><option>BGS</option><option>SGC</option><option>CGC</option><option>TAG</option><option>Otro</option></select></div>
+                <div class="field"><label for="grade">Grado</label><input id="grade" inputmode="decimal" placeholder="10" /></div>
+                <div class="field"><label for="purchasePrice">Costo</label><input id="purchasePrice" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" /></div>
+                <div class="field"><label for="estimatedValue">Valor actual</label><input id="estimatedValue" inputmode="decimal" type="number" min="0" step="0.01" placeholder="0.00" /></div>
+              </div>
+            </div>
+
+            <details class="details">
+              <summary>Más detalles ▾</summary>
+              <div class="form-grid">
+                <div class="field"><label for="league">Liga</label><input id="league" placeholder="MLB, NBA, NFL..." /></div>
+                <div class="field"><label for="team">Equipo</label><input id="team" /></div>
+                <div class="field span2"><label for="subset">Insert / subset</label><input id="subset" /></div>
+                <div class="field"><label for="serialNumber">Número serial</label><input id="serialNumber" placeholder="07" /></div>
+                <div class="field"><label for="printRun">De / print run</label><input id="printRun" inputmode="numeric" type="number" min="1" placeholder="25" /></div>
+                <div class="field span2"><label for="certNumber">Certificado grading</label><input id="certNumber" /></div>
+                <div class="field"><label for="purchaseDate">Fecha de compra</label><input id="purchaseDate" type="date" /></div>
+                <div class="field"><label for="seller">Comprada a</label><input id="seller" /></div>
+                <div class="field span2"><label for="location">Ubicación física</label><input id="location" placeholder="Binder 1 · Página 4 / Caja A" /></div>
+                <div class="field full"><label for="notes">Notas</label><textarea id="notes" placeholder="Detalles, procedencia, defectos, etc."></textarea></div>
+              </div>
+            </details>
+          </div>
+
+          <div class="capture-actions">
+            <button id="saveCloseBtn" class="btn secondary" type="submit" data-mode="close">Guardar</button>
+            <button id="saveNextBtn" class="btn primary" type="submit" data-mode="next">Guardar + siguiente</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="collectionView" class="view">
+        <div class="page-title"><p class="eyebrow">INVENTARIO</p><h1>Mi colección</h1><p>Busca por jugador, set, paralelo, equipo, certificado o ubicación.</p></div>
+        <div class="searchbar"><div class="searchbox">⌕ <input id="searchInput" placeholder="Buscar tarjetas..." /></div></div>
+        <div class="filter-row">
+          <select id="sportFilter"><option value="">Todos los deportes</option></select>
+          <select id="statusFilter"><option value="">Todos los estados</option><option>PC</option><option>Disponible</option><option>Venta</option><option>Trade</option><option>Vendida</option></select>
+          <select id="gradeFilter"><option value="">Raw + graded</option><option value="graded">Solo graded</option><option value="raw">Solo raw</option></select>
+          <select id="specialFilter"><option value="">Cualquier tipo</option><option value="rookie">Rookies</option><option value="auto">Autos</option><option value="mem">Memorabilia</option><option value="serial">Serializadas</option></select>
+        </div>
+        <div id="collectionList" class="cards-list"></div>
+        <div id="collectionEmpty" class="panel empty hidden">No encontré tarjetas con esos filtros.</div>
+      </section>
+
+      <section id="backupView" class="view">
+        <div class="page-title"><p class="eyebrow">SEGURIDAD</p><h1>Respaldo</h1><p>La colección vive en este dispositivo. Haz respaldos periódicos para no depender del navegador.</p></div>
+        <div class="notice"><strong>Importante:</strong> si borras los datos del navegador o cambias de teléfono, puedes perder la colección local. Exportar el respaldo conserva también las fotos.</div>
+        <div class="backup-grid section">
+          <article class="backup-card"><p class="eyebrow">EXPORTAR</p><h3>Descargar respaldo</h3><p>Crea un archivo JSON con tarjetas, valores, campos y fotografías.</p><button id="exportBtn" class="btn primary full" type="button">Descargar respaldo</button></article>
+          <article class="backup-card"><p class="eyebrow">IMPORTAR</p><h3>Restaurar colección</h3><p>Reemplaza los datos actuales usando un respaldo previo de CardVault.</p><label class="btn secondary full" style="display:block;text-align:center;cursor:pointer">Elegir respaldo<input id="importInput" class="file-input" type="file" accept="application/json,.json"></label></article>
+          <article class="backup-card"><p class="eyebrow">INSTALAR</p><h3>Como app</h3><p>Cuando se publique por HTTPS podrás instalarla en tu pantalla de inicio y usarla offline.</p><button id="installBtn2" class="btn secondary full" type="button">Instalar CardVault</button><div id="iosInstallTip" class="install-card hidden">En iPhone/iPad: abre en Safari → Compartir → <strong>Agregar a pantalla de inicio</strong>.</div></article>
+        </div>
+        <div class="section backup-card"><p class="eyebrow">DATOS</p><h3>Estado local</h3><p id="localStats">0 tarjetas almacenadas.</p><button id="clearAllBtn" class="btn danger" type="button">Borrar toda la colección</button></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="detailSheet" class="sheet hidden" role="dialog" aria-modal="true" aria-label="Detalle de tarjeta">
+    <div class="sheet-card">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><div><p class="eyebrow">DETALLE</p><h2 id="detailTitle">Tarjeta</h2></div><button id="closeDetailBtn" class="icon-btn" type="button">×</button></div>
+      <img id="detailPhoto" class="sheet-photo hidden" alt="Tarjeta" />
+      <div id="detailGrid" class="detail-grid"></div>
+      <div id="detailTags" class="tag-row"></div>
+      <div class="sheet-actions"><button id="editDetailBtn" class="btn secondary" type="button">Editar</button><button id="deleteDetailBtn" class="btn danger" type="button">Eliminar</button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Listo</div>
+
+  <script>
+  'use strict';
+  const DB_NAME='cardvault-sports-v2'; const STORE='cards'; const DB_VERSION=1; const FALLBACK_KEY='cardvault_sports_v2_cards';
+  const $=id=>document.getElementById(id); const money=new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0});
+  let db=null,storageMode='indexeddb',cards=[],editingId='',existingFront='',existingBack='',pendingFront='',pendingBack='',detailId='',deferredPrompt=null,lastSubmitMode='close';
+
+  function esc(v=''){return String(v).replace(/[&<>\'\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[ch]));}
+  function uid(){return (crypto&&crypto.randomUUID)?crypto.randomUUID():'card-'+Date.now()+'-'+Math.random().toString(16).slice(2)}
+  function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),2200)}
+  function fallbackRead(){try{return JSON.parse(localStorage.getItem(FALLBACK_KEY)||'[]')}catch{return[]}}
+  function fallbackWrite(data){localStorage.setItem(FALLBACK_KEY,JSON.stringify(data))}
+
+  function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window)){reject(new Error('IndexedDB unavailable'));return}const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const d=req.result;if(!d.objectStoreNames.contains(STORE))d.createObjectStore(STORE,{keyPath:'id'})};req.onsuccess=()=>{db=req.result;resolve()};req.onerror=()=>reject(req.error)})}
+  async function getAllCards(){if(storageMode==='localstorage')return fallbackRead();return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readonly').objectStore(STORE).getAll();r.onsuccess=()=>resolve(r.result||[]);r.onerror=()=>reject(r.error)})}
+  async function putCard(card){if(storageMode==='localstorage'){const arr=fallbackRead();const i=arr.findIndex(x=>x.id===card.id);if(i>=0)arr[i]=card;else arr.push(card);fallbackWrite(arr);return}return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).put(card);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+  async function removeCard(id){if(storageMode==='localstorage'){fallbackWrite(fallbackRead().filter(x=>x.id!==id));return}return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).delete(id);r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+  async function clearCards(){if(storageMode==='localstorage'){fallbackWrite([]);return}return new Promise((resolve,reject)=>{const r=db.transaction(STORE,'readwrite').objectStore(STORE).clear();r.onsuccess=()=>resolve();r.onerror=()=>reject(r.error)})}
+
+  async function refresh(){cards=await getAllCards();cards.sort((a,b)=>(b.updatedAt||b.createdAt||'').localeCompare(a.updatedAt||a.createdAt||''));renderHome();renderCollection();renderFilters();renderBackupStats();$('storageLabel').textContent=storageMode==='indexeddb'?'Tu colección · local y gratis':'Modo local compatible'}
+
+  function renderHome(){const total=cards.reduce((s,c)=>s+(Number(c.quantity)||1),0);const value=cards.reduce((s,c)=>s+(Number(c.estimatedValue)||0)*(Number(c.quantity)||1),0);const cost=cards.reduce((s,c)=>s+(Number(c.purchasePrice)||0)*(Number(c.quantity)||1),0);const pc=cards.filter(c=>(c.status||'PC')==='PC').reduce((s,c)=>s+(Number(c.quantity)||1),0);$('kpiCards').textContent=total.toLocaleString('es-MX');$('kpiValue').textContent=money.format(value);$('kpiCost').textContent=money.format(cost);$('kpiPc').textContent=pc.toLocaleString('es-MX');
+    const counts={};cards.forEach(c=>counts[c.sport||'Sin deporte']=(counts[c.sport||'Sin deporte']||0)+(Number(c.quantity)||1));const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);const max=entries[0]?.[1]||1;$('sportBreakdown').className=entries.length?'breakdown':'empty';$('sportBreakdown').innerHTML=entries.length?entries.map(([s,n])=>`<div class="break-row"><span>${esc(s)}</span><div class="bar"><i style="width:${(n/max)*100}%"></i></div><span>${n}</span></div>`).join(''):'Agrega tu primera tarjeta para ver el resumen.';
+    const recent=cards.slice(0,4);$('recentGrid').innerHTML=recent.length?recent.map(c=>`<article class="mini-card" data-open="${c.id}"><div class="mini-photo">${c.frontPhoto?`<img src="${c.frontPhoto}" alt="">`:'CV'}</div><div class="mini-copy"><strong>${esc(c.player||'Sin jugador')}</strong><small>${esc([c.year,c.brand,c.setName].filter(Boolean).join(' · '))}</small></div></article>`).join(''):'<div class="panel empty" style="grid-column:1/-1">Todavía no hay tarjetas registradas.</div>';bindOpenCards()}
+
+  function renderFilters(){const cur=$('sportFilter').value;const sports=[...new Set(cards.map(c=>c.sport).filter(Boolean))].sort();$('sportFilter').innerHTML='<option value="">Todos los deportes</option>'+sports.map(s=>`<option>${esc(s)}</option>`).join('');$('sportFilter').value=sports.includes(cur)?cur:''}
+  function filteredCards(){const q=$('searchInput').value.trim().toLowerCase(),sport=$('sportFilter').value,status=$('statusFilter').value,grade=$('gradeFilter').value,special=$('specialFilter').value;return cards.filter(c=>{const hay=[c.player,c.sport,c.league,c.team,c.year,c.brand,c.setName,c.subset,c.cardNumber,c.parallel,c.serialNumber,c.printRun,c.grader,c.grade,c.certNumber,c.location,c.notes,c.status].join(' ').toLowerCase();if(q&&!hay.includes(q))return false;if(sport&&c.sport!==sport)return false;if(status&&(c.status||'PC')!==status)return false;if(grade==='graded'&&!c.grader)return false;if(grade==='raw'&&c.grader)return false;if(special==='rookie'&&!c.rookie)return false;if(special==='auto'&&!c.autograph)return false;if(special==='mem'&&!c.memorabilia)return false;if(special==='serial'&&!c.serialed)return false;return true})}
+  function renderCollection(){const data=filteredCards();$('collectionEmpty').classList.toggle('hidden',data.length>0);$('collectionList').innerHTML=data.map(c=>{const special=[c.rookie&&'RC',c.autograph&&'AUTO',c.memorabilia&&'MEM',c.serialed&&(c.printRun?`/${c.printRun}`:'SERIAL')].filter(Boolean);const cond=c.grader?`${c.grader} ${c.grade||''}`.trim():(c.condition||'Raw');return `<article class="collection-card" data-open="${c.id}"><div class="collection-thumb">${c.frontPhoto?`<img src="${c.frontPhoto}" alt="">`:'Sin foto'}</div><div class="collection-main"><strong>${esc(c.player||'Sin jugador')}</strong><div class="meta">${esc([c.year,c.brand,c.setName,c.parallel].filter(Boolean).join(' · '))}</div><div class="tag-row"><span class="tag accent">${esc(c.status||'PC')}</span><span class="tag">${esc(cond)}</span>${special.map(t=>`<span class="tag warn">${esc(t)}</span>`).join('')}</div></div><div class="collection-side"><strong>${money.format(Number(c.estimatedValue)||0)}</strong><small>x${Number(c.quantity)||1}</small></div></article>`}).join('');bindOpenCards()}
+  function renderBackupStats(){const copies=cards.reduce((s,c)=>s+(Number(c.quantity)||1),0);const pics=cards.reduce((s,c)=>s+(c.frontPhoto?1:0)+(c.backPhoto?1:0),0);$('localStats').textContent=`${cards.length} registros · ${copies} ejemplares · ${pics} fotografías almacenadas en este dispositivo.`}
+  function bindOpenCards(){document.querySelectorAll('[data-open]').forEach(el=>el.onclick=()=>openDetail(el.dataset.open))}
+
+  function switchView(view){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view+'View'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));if(view==='capture'&&!editingId)prepareNewCard();window.scrollTo({top:0,behavior:'smooth'})}
+  function prepareNewCard(keepContext=false){editingId='';$('cardForm').reset();$('cardId').value='';$('quantity').value=1;$('status').value='PC';$('condition').value='NM-MT';existingFront=existingBack=pendingFront=pendingBack='';setPreview('front','');setPreview('back','');$('captureHeading').textContent='Nueva tarjeta';if(keepContext){/* intentionally blank; hook for future batch mode */}}
+  function editCard(id){const c=cards.find(x=>x.id===id);if(!c)return;editingId=id;$('cardForm').reset();$('cardId').value=id;const ids=['player','sport','league','team','year','brand','setName','subset','cardNumber','parallel','serialNumber','printRun','status','condition','quantity','grader','grade','certNumber','purchasePrice','estimatedValue','purchaseDate','seller','location','notes'];ids.forEach(k=>$(k).value=c[k]??'');['rookie','autograph','memorabilia','serialed'].forEach(k=>$(k).checked=!!c[k]);existingFront=c.frontPhoto||'';existingBack=c.backPhoto||'';pendingFront=pendingBack='';setPreview('front',existingFront);setPreview('back',existingBack);$('captureHeading').textContent='Editar tarjeta';closeDetail();switchView('capture')}
+
+  function setPreview(side,data){const img=$(side+'Preview'),slot=$(side+'Slot');if(data){img.src=data;slot.classList.add('has-photo')}else{img.removeAttribute('src');slot.classList.remove('has-photo')}}
+  async function imageToDataURL(file){if(!file)return'';const raw=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(file)});const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=raw});const max=1280;const scale=Math.min(1,max/Math.max(img.width,img.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);return canvas.toDataURL('image/jpeg',.78)}
+  async function handlePhoto(side,file){if(!file)return;toast('Procesando foto…');try{const data=await imageToDataURL(file);if(side==='front')pendingFront=data;else pendingBack=data;setPreview(side,data);toast('Foto lista')}catch(e){console.error(e);alert('No pude procesar esa imagen. Prueba con otra foto.')}}
+
+  async function saveForm(e){e.preventDefault();const submitter=e.submitter;lastSubmitMode=submitter?.dataset.mode||'close';if(!$('player').value.trim()){toast('Escribe el jugador');$('player').focus();return}const id=editingId||uid();const original=cards.find(c=>c.id===id);const now=new Date().toISOString();const card={id,player:$('player').value.trim(),sport:$('sport').value,league:$('league').value.trim(),team:$('team').value.trim(),year:$('year').value.trim(),brand:$('brand').value.trim(),setName:$('setName').value.trim(),subset:$('subset').value.trim(),cardNumber:$('cardNumber').value.trim(),parallel:$('parallel').value.trim(),rookie:$('rookie').checked,autograph:$('autograph').checked,memorabilia:$('memorabilia').checked,serialed:$('serialed').checked,serialNumber:$('serialNumber').value.trim(),printRun:$('printRun').value?Number($('printRun').value):'',status:$('status').value||'PC',condition:$('condition').value,quantity:Number($('quantity').value)||1,grader:$('grader').value,grade:$('grade').value.trim(),certNumber:$('certNumber').value.trim(),purchasePrice:Number($('purchasePrice').value)||0,estimatedValue:Number($('estimatedValue').value)||0,purchaseDate:$('purchaseDate').value,seller:$('seller').value.trim(),location:$('location').value.trim(),notes:$('notes').value.trim(),frontPhoto:pendingFront||existingFront||'',backPhoto:pendingBack||existingBack||'',createdAt:original?.createdAt||now,updatedAt:now};try{await putCard(card);await refresh();toast(original?'Tarjeta actualizada':'Tarjeta guardada');if(lastSubmitMode==='next'){prepareNewCard();$('player').focus();window.scrollTo({top:0,behavior:'smooth'})}else{prepareNewCard();switchView('collection')}}catch(err){console.error(err);alert('No pude guardar la tarjeta. Exporta un respaldo si tienes datos importantes y revisa el espacio disponible del navegador.')}
+  }
+
+  function openDetail(id){const c=cards.find(x=>x.id===id);if(!c)return;detailId=id;$('detailTitle').textContent=c.player||'Tarjeta';const photo=c.frontPhoto||c.backPhoto||'';$('detailPhoto').classList.toggle('hidden',!photo);if(photo)$('detailPhoto').src=photo;const items=[['Año / marca',[c.year,c.brand].filter(Boolean).join(' · ')||'—'],['Set',c.setName||'—'],['Paralelo',c.parallel||'—'],['No. tarjeta',c.cardNumber||'—'],['Condición',c.grader?`${c.grader} ${c.grade||''}`:(c.condition||'Raw')],['Estado',c.status||'PC'],['Costo',money.format(Number(c.purchasePrice)||0)],['Valor',money.format(Number(c.estimatedValue)||0)],['Ubicación',c.location||'—'],['Serial',c.serialed?[c.serialNumber,c.printRun&&`/${c.printRun}`].filter(Boolean).join('')||'Serializada':'—']];$('detailGrid').innerHTML=items.map(([k,v])=>`<div class="detail-item"><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('');const tags=[c.sport,c.team,c.rookie&&'RC',c.autograph&&'AUTO',c.memorabilia&&'MEM'].filter(Boolean);$('detailTags').innerHTML=tags.map(t=>`<span class="tag ${t==='RC'?'accent':''}">${esc(t)}</span>`).join('');$('detailSheet').classList.remove('hidden');document.body.style.overflow='hidden'}
+  function closeDetail(){$('detailSheet').classList.add('hidden');document.body.style.overflow=''}
+  async function deleteDetail(){if(!detailId)return;if(!confirm('¿Eliminar esta tarjeta de la colección?'))return;await removeCard(detailId);closeDetail();await refresh();toast('Tarjeta eliminada')}
+
+  async function exportBackup(){const payload={app:'CardVault Sports',version:2,exportedAt:new Date().toISOString(),cards};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`cardvault-v2-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);localStorage.setItem('cardvault_last_backup',new Date().toISOString());toast('Respaldo descargado')}
+  async function importBackup(file){try{const data=JSON.parse(await file.text());if(!Array.isArray(data.cards))throw new Error('invalid');if(!confirm(`Se reemplazará la colección actual con ${data.cards.length} registros. ¿Continuar?`))return;await clearCards();for(const c of data.cards)await putCard(c);await refresh();switchView('collection');toast('Colección restaurada')}catch(e){alert('Ese archivo no parece un respaldo válido de CardVault.')}finally{$('importInput').value=''}}
+  async function clearAll(){if(!cards.length){toast('La colección ya está vacía');return}const ok=confirm(`Esto eliminará ${cards.length} registros de ESTE dispositivo. ¿Continuar?`);if(!ok)return;const sure=confirm('Última confirmación: esta acción no se puede deshacer sin un respaldo.');if(!sure)return;await clearCards();await refresh();toast('Colección eliminada')}
+
+  async function installApp(){if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;toggleInstallButtons(false);return}const isiOS=/iphone|ipad|ipod/i.test(navigator.userAgent);if(isiOS){$('iosInstallTip').classList.remove('hidden');switchView('backup');toast('Mira las instrucciones de instalación')}else{toast('Abre la app desde HTTPS para instalarla')}}
+  function toggleInstallButtons(show){$('installBtn').classList.toggle('hidden',!show)}
+
+  function bind(){document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));$('quickAddTop').onclick=()=>{prepareNewCard();switchView('capture')};$('homeAddBtn').onclick=()=>{prepareNewCard();switchView('capture')};$('homeCollectionBtn').onclick=$('seeAllBtn').onclick=()=>switchView('collection');$('cardForm').addEventListener('submit',saveForm);document.querySelectorAll('[data-photo]').forEach(b=>b.addEventListener('click',()=>{$(b.dataset.photo+(b.dataset.source==='camera'?'Camera':'Gallery')).click()}));['frontCamera','frontGallery'].forEach(id=>$(id).addEventListener('change',e=>handlePhoto('front',e.target.files?.[0])));['backCamera','backGallery'].forEach(id=>$(id).addEventListener('change',e=>handlePhoto('back',e.target.files?.[0])));['searchInput','sportFilter','statusFilter','gradeFilter','specialFilter'].forEach(id=>$(id).addEventListener(id==='searchInput'?'input':'change',renderCollection));$('closeDetailBtn').onclick=closeDetail;$('detailSheet').addEventListener('click',e=>{if(e.target===$('detailSheet'))closeDetail()});$('editDetailBtn').onclick=()=>editCard(detailId);$('deleteDetailBtn').onclick=deleteDetail;$('exportBtn').onclick=exportBackup;$('importInput').addEventListener('change',e=>e.target.files?.[0]&&importBackup(e.target.files[0]));$('clearAllBtn').onclick=clearAll;$('installBtn').onclick=installApp;$('installBtn2').onclick=installApp;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;toggleInstallButtons(true)});window.addEventListener('appinstalled',()=>{deferredPrompt=null;toggleInstallButtons(false);toast('CardVault instalada')});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('detailSheet').classList.contains('hidden'))closeDetail()})}
+
+  (async function init(){bind();try{await openDB()}catch(err){console.warn('IndexedDB no disponible; usando localStorage',err);storageMode='localstorage'}await refresh();const isiOS=/iphone|ipad|ipod/i.test(navigator.userAgent);if(isiOS)$('iosInstallTip').classList.remove('hidden');if('serviceWorker'in navigator&&location.protocol.startsWith('http')){navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('SW',err))}})().catch(err=>{console.error(err);alert('CardVault encontró un error al iniciar. Recarga la página.')});
+  </script>
+</body>
+</html>
